@@ -1,0 +1,68 @@
+
+
+Useful wallet integration parameters:
+from https://raven.wiki/wiki/Wallet_integration
+
+###Raven info:
+##sources: validation.h, policy.h, wallet.h, chainparams.cpp
+
+DEFAULT_TRANSACTION_MINFEE = 1000; //satoshis per kb
+DEFAULT_FALLBACK_FEE = 20000;  //satoshis per kb (from wallet.h)
+DEFAULT_TX_CONFIRM_TARGET = 6; //blocks
+Transaction.MAX_MONEY = 21000000000 * 1e8;
+nSubsidyHalvingInterval = 2100000; // halving block height
+nSubsidy = 5000 * COIN;
+MAX_MONEY = 21000000000 * COIN;
+DUST_RELAY_TX_FEE = 3000;   //per kb
+DEFAULT_BLOCK_MIN_TX_FEE = 1000;  //per kb
+DUST threshold 546 sats
+
+##Bitcore:
+###networkMagic is entered in reverse in bitcore###
+
+MAINNET
+rpcport: 8766
+addNetwork({
+    pubkeyhash: 0x3c,
+    privatekey: 0x80,
+    scripthash: 0x7a,
+    xpubkey: 0x0488b21e,
+    xprivkey: 0x0488ade4,
+    networkMagic: 0x5241564e,
+    port: 8767,
+    dnsSeeds: [
+        'seed-raven.ravencoin.org',
+        'seed-raven.bitactivate.com'
+    ]
+});
+
+TESTNET
+rpcport: 18766
+addNetwork({
+    pubkeyhash: 0x6f,
+    privatekey: 0xef,
+    scripthash: 0xc4,
+    xpubkey: 0x043587cf,
+    xprivkey: 0x04358394,
+    networkMagic: 0x52564e54,
+    port: 18767,
+    dnsSeeds: [
+        'seed-testnet-raven.ravencoin.org',
+        'seed-testnet-raven.bitactivate.com'
+    ]
+});
+
+REGTEST
+rpcport: 18443
+addNetwork({
+    pubkeyhash: 0x6f,
+    privatekey: 0xef,
+    scripthash: 0xc4,
+    xpubkey: 0x043587cf,
+    xprivkey: 0x04358394,
+    networkMagic: 0x43524f57,
+    port: 18444,
+    dnsSeeds: []
+});
+
+

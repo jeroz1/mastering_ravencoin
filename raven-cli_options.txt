@@ -1,0 +1,74 @@
+Raven Core RPC client version v2.0.4.0-e1a96a0bd
+
+Usage:
+  raven-cli [options] <command> [params]  Send command to Raven Core
+  raven-cli [options] -named <command> [name=value] ... Send command to Raven Core (with named arguments)
+  raven-cli [options] help                List commands
+  raven-cli [options] help <command>      Get help for a command
+
+Options:
+
+  -?
+       This help message
+
+  -conf=<file>
+       Specify configuration file (default: raven.conf)
+
+  -datadir=<dir>
+       Specify data directory
+
+  -getinfo
+       Get general information from the remote server. Note that unlike
+       server-side RPC calls, the results of -getinfo is the result of
+       multiple non-atomic requests. Some entries in the result may
+       represent results from different states (e.g. wallet balance may
+       be as of a different block from the chain state reported)
+
+Chain selection options:
+
+  -testnet
+       Use the test chain
+
+  -regtest
+       Enter regression test mode, which uses a special chain in which blocks
+       can be solved instantly. This is intended for regression testing
+       tools and app development.
+
+  -named
+       Pass named instead of positional arguments (default: false)
+
+  -rpcconnect=<ip>
+       Send commands to node running on <ip> (default: 127.0.0.1)
+
+  -rpcport=<port>
+       Connect to JSON-RPC on <port> (default: 8766 or testnet: 18766)
+
+  -rpcwait
+       Wait for RPC server to start
+
+  -rpcuser=<user>
+       Username for JSON-RPC connections
+
+  -rpcpassword=<pw>
+       Password for JSON-RPC connections
+
+  -rpcclienttimeout=<n>
+       Timeout in seconds during HTTP requests, or 0 for no timeout. (default:
+       900)
+
+  -stdinrpcpass
+       Read RPC password from standard input as a single line.  When combined
+       with -stdin, the first line from standard input is used for the
+       RPC password.
+
+  -stdin
+       Read extra arguments from standard input, one per line until EOF/Ctrl-D
+       (recommended for sensitive information such as passphrases). 
+       When combined with -stdinrpcpass, the first line from standard
+       input is used for the RPC password.
+
+  -rpcwallet=<walletname>
+       Send RPC for non-default wallet on RPC server (argument is wallet
+       filename in ravend directory, required if ravend/-Qt runs with
+       multiple wallets)
+
