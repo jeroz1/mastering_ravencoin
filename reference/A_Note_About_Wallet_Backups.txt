@@ -1,0 +1,18 @@
+
+Som explicit explanation of the difference between a wallet passphrase and wallet mnemonic code words:
+======================================================================================================
+
+Some people appear to be under the impression that if they remember their wallet passphrase, then they do not need their "wallet.dat" file, which is not true.
+
+There are basically three major types of wallets:
+
+1) Wallets which generate new keys randomly and you need to make a copy of your wallet every time a new key pair is generated. Thankfully, those are no longer used (at least not by us)
+
+2) HD (Hierarchical Deterministic- called BIP-32) wallets which generate all their keys from an initial seed. The Ravencoin desktop ravend/raven-qt wallet is this type of wallet. Since all keys are derived from the initial seed, you only need to make a backup one time, and all future generated keys can be regenerated from the backup. That seed is randomly generated at wallet initialization. For security, the wallet should be encrypted using a passphrase. But you need BOTH the "wallet.dat" file AND the passphrase to recover your keys. It is also worth knowing that when you encrypt an existing wallet, the random initial seed is replaced with a new one, so you need to make a new backup of your "wallet.dat" file. For geeks who care, there is an even fancier HD standard called BIP-44 which we do NOT yet support.
+
+3) BIP-39 (Mnemonic code deterministic) wallets. These are HD wallets which generate their initial seed from a set of 12 to 24 code words. With this type of wallet, the mnemonic code words is all you need to recover your coins and assets. The ravencoin Android wallet works this way. The Ledger hardware wallet (when it becomes available) is also of this type.
+
+Cheers,
+Hans Schmidt
+
+

@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>What is wrong with Ravencoin testnet6 block 38554?</title>
+
+  
+  
+  <meta content="Hans Schmidt" name="author">
+
+  
+  <meta content="What is wrong with Ravencoin testnet6 block 38554?" name="description">
+
+  
+  <style type="text/css">
+
+body{margin:0; padding-left: 50px; padding-right: 50px; font-family: verdana; font-size: 150%;}
+
+p{padding:100px; height:20px; color:#4e4e4e; font-size:30px;}
+
+a:link{color:#000066;}
+
+a:visited{color:#6666ff;}
+
+a:hover{color:#000000; text-decoration:underline;}
+
+#spiral_note{margin:0; background-image:url(images/spiral_note.png); background-repeat: repeat-y;}
+
+div{margin-top:20px; margin-bottom:20px !important;}
+  </style>
+</head><body>
+<div id="spiral_note">
+<div style="padding-left: 126px;">
+<div style="background-image: url(images/nospiral_note.png); background-repeat: repeat;">
+<div style="padding-right: 50px; padding-top: 10px; padding-bottom: 20px;"><br>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" width="33%">Hans Schmidt :&nbsp; Oct 25th 2018 <br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="right" valign="top" width="33%"><a href="mailto:hans_schm1dt@protonmail.com">hans_schm1dt@protonmail.com</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div align="center">
+<big><big>Anatomy of a Ravencoin Asset Transaction Script <br>
+(creation or transfer)</big></big><small>
+</small><i><b><br>
+<small>*Note: Applies for asset creation and asset transfer
+transactions. See notes below for asset reissue transactions*</small></b></i><br>
+</div>
+<br>
+EXAMPLE
+HEX:c03872766e7105544553545900743ba40b00000008010122122086d85921a971bab5d727b
+ca0feb2a3f1336c4c5bf0453cc4c0104984c8cecfeb75
+<br>
+<br>
+EXAMPLE ASM:OP_RVN_ASSET 72766e 71 05 5445535459 00743ba40b000000 08 01
+01 22
+122086d85921a971bab5d727bca0feb2a3f1336c4c5bf0453cc4c0104984c8cecfeb
+OP_DROP
+<br>
+<br>
+<table border="2">
+  <tbody>
+    <tr>
+      <th style="text-align: left;"> Description </th>
+      <th style="text-align: left;"> Value </th>
+    </tr>
+    <tr>
+      <td>OP_RVN_ASSET </td>
+      <td> c0 </td>
+    </tr>
+    <tr>
+      <td>Bytelength of script(1 byte) </td>
+      <td> 38 </td>
+    </tr>
+    <tr>
+      <td>Asset_type Header(rvn) </td>
+      <td> 72766e </td>
+    </tr>
+    <tr>
+      <td>Asset_type (transfer(t)=74 or new(q)=71 or owner(o)=6f) </td>
+      <td> 74 </td>
+    </tr>
+    <tr>
+      <td>Bytelength of Asset_Name(1 byte) </td>
+      <td> 05 </td>
+    </tr>
+    <tr>
+      <td>Asset_Name (up to 31 bytes: 30 for normal, 31 for ownership) </td>
+      <td> 5445535459 </td>
+    </tr>
+    <tr>
+      <td>8 Bytes of Little Endian hex: Amount of assets in satoshis </td>
+      <td> 00743ba40b000000 </td>
+    </tr>
+    <tr>
+      <td>Divisible by (1 byte) range(00..08) units<br>
+      </td>
+      <td> 08 </td>
+    </tr>
+    <tr>
+      <td>is reissueable (1 byte) (01 yes: 00 no) </td>
+      <td> 01 </td>
+    </tr>
+    <tr>
+      <td>has ipfs (1 byte) (01 yes: 00 no) </td>
+      <td> 01 </td>
+    </tr>
+    <tr>
+      <td><strike>ipfs Bytelength (1 byte) </strike></td>
+      <td>&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This field does
+not exist. The IPFS hash in hex is always 34 bytes<br>
+      </td>
+    </tr>
+    <tr>
+      <td>IPFS hash decoded from base58 to hex </td>
+      <td>122086d85921a971bab5d727bca0feb2a3f1336c4c5bf0453cc4c0104984c8cecfeb
+      </td>
+    </tr>
+    <tr>
+      <td>OP_DROP </td>
+      <td> 75 </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+So in this example we have an OP_RVN_ASSET with a total bytelength of
+38 bytes, with a transaction type rvn<b>t</b> (asset transfer). <br>
+<br>
+The Bytelength of the Asset_Name is 5 and the Asset_Name is TESTY. The
+amount of the transaction is 500. <br>
+<br>
+The Asset is divisible by up to 8 units(decimal places), and the Asset
+is marked as reissuable. <br>
+<br>
+The Asset has an IPFS hash, of 34 bytes in length, and the base58
+encoded hash is QmXR2gRJnYHFaYvSCKEy6mPeJAsTN8ab7AvGZeNRbycnXL.<br>
+<br>
+<div align="center">
+<big><big>Anatomy of a Ravencoin Asset Reissue Transaction Script</big></big>
+<i><b>*For reissue transactions the format is identical up until and
+including the encoded amount (qty) in satoshis.*</b></i><br>
+</div>
+<table border="2">
+  <tbody>
+    <tr>
+      <th style="text-align: left;"> Description </th>
+      <th style="text-align: left;"> Value </th>
+    </tr>
+    <tr>
+      <td>OP_RVN_ASSET </td>
+      <td> c0 </td>
+    </tr>
+    <tr>
+      <td>Bytelength of script(1 byte) </td>
+      <td> 38 </td>
+    </tr>
+    <tr>
+      <td>Asset_type Header(rvn) </td>
+      <td> 72766e </td>
+    </tr>
+    <tr>
+      <td>Asset_type reissue(r) =72 </td>
+      <td> 72 </td>
+    </tr>
+    <tr>
+      <td>Bytelength of Asset_Name(1 byte) </td>
+      <td> 05 </td>
+    </tr>
+    <tr>
+      <td>Asset_Name (up to 31 bytes: 30 for normal, 31 for ownership) </td>
+      <td> 5445535459 </td>
+    </tr>
+    <tr>
+      <td>8 Bytes of Little Endian hex: Amount of assets in satoshis </td>
+      <td> 00743ba40b000000 </td>
+    </tr>
+    <tr>
+      <td>Divisible by (1 byte) range(00..08) units</td>
+      <td> 08&nbsp; note: FF is used to indicate no change in units<br>
+      </td>
+    </tr>
+    <tr>
+      <td>is reissueable (1 byte) (01 yes: 00 no) </td>
+      <td> 01 </td>
+    </tr>
+    <tr>
+      <td>new IPFS hash decoded from base58 to hexif changed (34 bytes)
+&nbsp; <br>
+      </td>
+      <td>122086d85921a971bab5d727bca0feb2a3f1336c4c5bf0453cc4c0104984c8cecfeb
+      </td>
+    </tr>
+    <tr>
+      <td>OP_DROP </td>
+      <td> 75 </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+I am not 100% certain this is correct for all cases<br>
+<br>
+<br>
+<div align="center">Copyright 2018 by Hans Schmidt<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

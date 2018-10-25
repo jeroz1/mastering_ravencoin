@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>What is wrong with Ravencoin testnet6 block 38554?</title>
+  
+
+  
+  
+  <meta content="Hans Schmidt" name="author">
+
+  
+  <meta content="What is wrong with Ravencoin testnet6 block 38554?" name="description">
+
+  
+  <style type="text/css">
+
+body{margin:0; padding-left: 50px; padding-right: 50px; font-family: verdana; font-size: 150%;}
+
+p{padding:100px; height:20px; color:#4e4e4e; font-size:30px;}
+
+a:link{color:#000066;}
+
+a:visited{color:#6666ff;}
+
+a:hover{color:#000000; text-decoration:underline;}
+
+#spiral_note{margin:0; background-image:url(../images/spiral_note.png); background-repeat: repeat-y;}
+
+div{margin-top:20px; margin-bottom:20px !important;}
+  </style></head><body>
+<div id="spiral_note">
+<div style="padding-left: 126px;">
+<div style="background-image: url(../images/nospiral_note.png); background-repeat: repeat;">
+<div style="padding-right: 50px; padding-top: 10px; padding-bottom: 20px;"><br>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" width="33%">Hans Schmidt :&nbsp; Oct 25th 2018 <br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="right" valign="top" width="33%"><a href="mailto:hans_schm1dt@protonmail.com">hans_schm1dt@protonmail.com</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div align="center">
+<big><big>What is wrong with Ravencoin testnet6 block 38554?</big></big>
+<br>
+<i><b>*Why did Blondfrogs instruct everyone to invalidateblock 38554 on Ravencoin testnet6? Why did the chain fork?*</b></i><br>
+</div>
+<br>
+<br><br>
+
+<b>Background:</b><br>
+
+<br>
+Two days ago (on 2018-10-23) Blondfrogs (the Ravencoin developer)
+instructed people using testnet6 that the testnet was no longer valid
+after the introduction of the new wallet 2.1.1. He instructed that it
+was necessary to do the following:<br>
+<ol>
+  <li>From the console: <small>"invalidateblock 000000a02dd6a07fb8e70ddd43bdc7970463476d99088d772699849c98508edd"</small><br>
+  </li>
+  <li>Then shutdown the client and reindex with <small>"./src/ravend -testnet -reindex"</small> </li>
+</ol>
+So this begs the question of what exactly is wrong with that block. Curiosity is a good thing.<br>
+<br>
+<u><i><big>A quick analysis of </big></i></u><u><i><big>testnet6 </big></i></u><u><i><big>block 38554</big></i></u><br>
+<br>
+<b>Looking at the block:</b><br>
+<br>Go to: <a href="https://testnet.ravencoin.network/block/000000a02dd6a07fb8e70ddd43bdc7970463476d99088d772699849c98508edd"><small>https://testnet.ravencoin.network/block/000000a02dd6a07fb8e70ddd43bdc7970463476d99088d772699849c98508edd</small></a><br>
+<br>You should now be looking at the contents of testnet6 Block #38554. It should look like this:<br>
+<br>
+<img alt="testnet6 block 38554" src="../images/testnet6_block_38554.png" height="933" width="766"><br>
+<br>
+You will notice that it contains just two transactions.<br>
+<ol>
+  <li>A simple coinbase mining transaction yielding 5000 testnet6 RVN<br>
+  </li>
+  <li>A more interesting which we will look at closer<br>
+  </li>
+</ol>
+
+<b>The illegal transaction:</b><br>
+<br>
+<div align="center"><big><i>"People who are really serious about
+software should make their own hardware"<br>
+-<a href="https://en.wikipedia.org/wiki/Alan_Kay">Alan Kay</a>,
+computer pioneer, inventor of the GUI</i><br>
+</big></div><img src="images/mouse-42255.jpeg" alt="" width="50%">
+<br>Clicking on the 2nd transaction <small>(Transaction ID 97c9c085e4c34ed83097a6666980da028d5c12e135085f6d8b9e0f69da613065)</small> we can see the details as follows:<br>
+<br>
+<img alt="testnet6 block 38554 bad transaction" src="../images/testnet6_block38554_bad_transaction.png" border="2" height="796" width="1026"><br>
+<br>
+So now we have the illegal transaction number and we can look closer. <br>
+<br>
+I will not go into complete disassembly of the instruction here (I
+intend to publish a detailed article next week showing how to do this
+for all Ravencoin transactions). But I will show some of the
+dissassembly of the illegal portion here as an instructive example.<br>
+<ul>
+  <li>There are 2 inputs:</li>
+  <ul>
+    <li>Input 0: The first input is the source of RVN funds to pay for creating assets</li>
+    <ul>
+      <li>address mp11kyznmbyJdLWU4yfMQ9TEALo9hNkz5r containing 3,694.99196100 RVN</li>
+    </ul>
+    <li>Input 1: The second input which appears somewhat mysterious</li>
+    <ul>
+      <li>this is the owner token which is required to provide the authority to create a subasset</li>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li>There are 5 outputs:</li>
+  <ul>
+    <li>Output 0: This is the RVN change back to the user (note that it is 10 RVN less than Input 0)</li>
+    <ul>
+      <li>Note the address <span class="ng-binding ng-scope">mnmMJhzA9DFdGNkHrN2bKPerABJYnC4FHJ</span> where the user will receive his RVN balance.<br>
+      </li>
+    </ul>
+    <li>Output 1: A transfer of 10 RVN to the address <span class="ng-binding ng-scope">n1issueUniqueAssetXXXXXXXXXXS4695i <br>
+      </span></li>
+    <ul>
+      <li><span class="ng-binding ng-scope">A fairly strong hint! There are two unique assets being created.</span></li>
+    </ul>
+    <li><span class="ng-binding ng-scope">Output 3: Output 3 is the return of the owner token back to the user.</span></li>
+    <ul>
+      <li><span class="ng-binding ng-scope">Note that the address is the same as the address used for Output 0</span></li>
+    </ul>
+    <li><span class="ng-binding ng-scope">Output 4: This is a unique asset creation being sent to the address </span><span class="ng-binding ng-scope">n4AUD8J9WP8BAV1MEhDYFVfkEMzT9xvU6P</span></li>
+    <li><span class="ng-binding ng-scope">Output 5: </span><span class="ng-binding ng-scope">This is another unique asset creation being sent to the same address</span></li>
+  </ul>
+</ul>
+<b>The smoking gun:<br>
+<br>
+</b>So now let's take a closer look at Outputs 4 and 5. We can click on the web page and copy the details here:<br>
+<ul>
+  <li>Ouput 4: <small>OP_DUP OP_HASH160
+f86b2130cd45f1eca4c13a2f9940913a6a8a6a6e OP_EQUALVERIFY OP_CHECKSIG
+OP_RVN_ASSET 72766e710741434d4532233100e1f50500000000000000 OP_DROP</small></li>
+  <ul>
+    <li>Note the portion: <small>72766e710741434d4532233100e1f50500000000000000</small></li>
+  </ul>
+  <li>Output 5: <small>OP_DUP OP_HASH160
+f86b2130cd45f1eca4c13a2f9940913a6a8a6a6e OP_EQUALVERIFY OP_CHECKSIG
+OP_RVN_ASSET 72766e710741434d4532233100e1f50500000000000000 OP_DROP</small></li>
+  <ul>
+    <li>Note the portion: <small>72766e710741434d4532233100e1f50500000000000000</small></li>
+  </ul>
+</ul>
+The portion of the outputs which are of primary interest are: <small>72766e710741434d4532233100e1f50500000000000000</small><br>
+<br>
+This is the portion of each output which actually creates the asset. It can the broken down as follows:<br>
+<br>
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><small>72766e</small></td>
+      <td valign="top"><small>In ascii, this is "rvn", which is the standard Ravencoin asset header<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>71<br>
+      </small></td>
+      <td valign="top"><small>The "71" here is the Ravencoin asset opcode for asset creation<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>07<br>
+      </small></td>
+      <td valign="top"><small>This indicates that the length of the asset name is 7 bytes long<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>41434d45322331</small></td>
+      <td valign="top"><small>These 7 bytes in ascii are "ACME2#1", which is the name the user chose for his new unique asset<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>00e1f50500000000</small></td>
+      <td valign="top"><small>Qty: This is an 8-bytes little-endian qty = 1e8 satoshis = 1 asset, which is always the case for unique assets<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>00<br>
+      </small></td>
+      <td valign="top"><small>divisibility (units) is set to 0<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>00<br>
+      </small></td>
+      <td valign="top"><small>reissuability is set to 0<br>
+      </small></td>
+    </tr>
+    <tr>
+      <td valign="top"><small>00<br>
+      </small></td>
+      <td valign="top"><small>has_ipfs is set to 0 = no<br>
+      </small></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+So that makes sense. But both transaction outputs 4 and 5 have identical asset creation sections<br>
+<br>
+But that should not be allowed! Two unique assets with the same name!<br>
+<b><br>
+</b><b>The smoking gun:<br>
+</b><br>
+So there we have it! This is the Duplicate Unique ID bug which Scotty0448 <a href="https://github.com/RavenProject/Ravencoin/issues/400">discovered</a> and which earned him a <a href="https://github.com/RavenProject/Ravencoin/wiki">bug bounty</a>.<br>
+<br>
+<b>Now go find some bugs of your own before October 31st !</b><br>
+<b><br>
+</b>
+<div align="center">Copyright 2018 by Hans Schmidt<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</body></html>

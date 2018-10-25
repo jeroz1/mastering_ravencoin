@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Asset-Related Transaction Generation Behavior by Ravencoin</title>
+  
+
+  
+  
+  <meta content="Hans Schmidt" name="author">
+
+  
+  <meta content="Asset-Related Transaction Generation Behavior by Ravencoin" name="description">
+
+  
+  <style type="text/css">
+
+body{margin:0; padding-left: 50px; padding-right: 50px; font-family: verdana; font-size: 150%;}
+
+p{padding:100px; height:20px; color:#4e4e4e; font-size:30px;}
+
+a:link{color:#000066;}
+
+a:visited{color:#6666ff;}
+
+a:hover{color:#000000; text-decoration:underline;}
+
+#spiral_note{margin:0; background-image:url(images/spiral_note.png); background-repeat: repeat-y;}
+
+div{margin-top:20px; margin-bottom:20px !important;}
+  </style></head><body>
+<div id="spiral_note">
+<div style="padding-left: 126px;">
+<div style="background-image: url(images/nospiral_note.png); background-repeat: repeat;">
+<div style="padding-right: 50px; padding-top: 10px; padding-bottom: 20px;"><br>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" width="33%">Hans Schmidt :&nbsp; Oct 25th 2018 <br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="right" valign="top" width="33%"><a href="mailto:hans_schm1dt@protonmail.com">hans_schm1dt@protonmail.com</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div align="center">
+<big><big>Asset-Related Transaction Generation Behavior by Ravencoin</big></big>
+<br>
+<i><b>*The components of transactions which Ravencoin generates to handle assets*</b></i><br>
+</div>
+<br>
+<br><br><u>
+
+
+Creating Assets:</u><br>
+<ul>
+  <li>1 input:&nbsp;</li>
+  <ul>
+    <li>0) the source of the 500 RVN to burn</li>
+  </ul>
+  <li>4 outputs: <br>
+  </li>
+  <ul>
+    <li>0) the 500 RVN burn, with transaction output "value" set to 500 <br>
+    </li>
+    <li>1) the RVN change to a change address, with transaction output "value" set as needed <br>
+    </li>
+    <li>2) a "type 6f=o owner" creation of the asset owner token with
+"value"=0 and no encoded qty or features (OP_DROP comes right after the
+asset name with appended "!") sent to a new address <br>
+    </li>
+    <li>3) a "type 71 new" asset issue order with "value"=0 and qty and
+other attributes encoded as desired and sent to the same address used
+for output#2 <br>
+    </li>
+  </ul>
+</ul>
+<br>
+<u>Creating SubAssets:</u><br>
+<ul>
+  <li>2 inputs: <br>
+  </li>
+  <ul>
+    <li>0) the source of the 1</li>
+  </ul>
+  <li>5 outputs: <br>
+  </li>
+  <li>0) The RVN change to a change address with "value" set as needed <br>
+  </li>
+  <li>1) the 100 RVN burn with "value" set at 100 <br>
+  </li>
+  <li>2) a "type 74=t transfer" of the master owner token to the change address used for output#0 with encoded qty=1 and "value"=0 <br>
+  </li>
+  <li>3) a "type 6f=o owner" creation of the subasset owner token with
+"value"=0 and no encoded qty or features (OP_DROP comes right after the
+subasset name w appended "!") sent to a new address <br>
+  </li>
+  <li>4) a "type 71=q new" subasset issue order with "value"=0 and qty
+and other attributes encoded as desired and sent to the same address
+used for output#3 <br>
+  </li>
+</ul>
+<br>
+<u>Creating Unique Assets:</u><br>
+<ul>
+  <li>2 inputs: <br>
+  </li>
+  <ul>
+    <li>0) the source of the 5 RVN to burn <br>
+    </li>
+    <li>1) the asset owner token</li>
+  </ul>
+  <li>4 outputs: <br>
+  </li>
+  <ul>
+    <li>0) the 5 RVN burn with "value" set at 5 <br>
+    </li>
+    <li>1) a "type 74=t transfer" of the master owner token to the change address used for output#2 with encoded qty=1 and "value"=0 <br>
+    </li>
+    <li>2) The RVN change to a change address with "value" set as needed, <br>
+    </li>
+    <li>3) a "type 71=q new" asset issue order with "value"=0 and with
+encoded qty=1, other attributes encoded as desired, and sent to a new
+address -note that no owner token is generated for the unique asset <br>
+    </li>
+  </ul>
+</ul>
+<br>
+<u>Transferring Owner Assets:</u><br>
+<ul>
+  <li>2 inputs: <br>
+  </li>
+  <ul>
+    <li>0) the source of RVN for the transaction fees <br>
+    </li>
+    <li>1) the asset owner token <br>
+    </li>
+  </ul>
+  <li>2 output: <br>
+  </li>
+  <ul>
+    <li>0) a "type 74=t transfer" of the master owner token to the new address with encoded qty=1 and "value"=0 <br>
+    </li>
+    <li>1) the RVN change to a change address, with "value" set as needed <br>
+    </li>
+  </ul>
+</ul>
+<br>
+<u>Transferring non-Owner Assets:</u><br>
+<ul>
+  <li>2 inputs: <br>
+  </li>
+  <ul>
+    <li>0) the source of RVN for the transaction fees <br>
+    </li>
+    <li>1) the non-owner asset token(s) <br>
+    </li>
+  </ul>
+  <li>3 outputs: <br>
+  </li>
+  <ul>
+    <li>0) a "type 74=t transfer" of the assets being sent to new
+address, with "value"=0, and qty and other attributes encoded as desired</li>
+  </ul>
+  <ul>
+    <li>1) a "type 74=t transfer" of the remaining assets being sent to
+a change address, with "value"=0, and qty and other attributes encoded
+as desired. <br>
+    </li>
+    <li>2) The RVN change to the same change address used for output#1, with transaction output "value" set as needed <br>
+    </li>
+  </ul>
+</ul>
+<br>
+<u>Reissuing an Asset:</u><br>
+<ul>
+  <li>2 inputs: <br>
+  </li>
+  <li>4 outputs:</li>
+</ul>
+<br>
+<br>
+
+
+<div align="center">Copyright 2018 by Hans Schmidt<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</body></html>
