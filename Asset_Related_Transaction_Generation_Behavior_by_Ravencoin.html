@@ -4,6 +4,7 @@
 
 
 
+
   
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Asset-Related Transaction Generation Behavior by Ravencoin</title>
   
@@ -91,20 +92,40 @@ for output#2 <br>
   </ul>
   <li>5 outputs: <br>
   </li>
-  <li>0) The RVN change to a change address with "value" set as needed <br>
+  
+  <ul>
+    <li>0) The RVN change to a change address with "value" set as needed <br>
   </li>
-  <li>1) the 100 RVN burn with "value" set at 100 <br>
+  </ul>
+
+  
+  <ul>
+    <li>1) the 100 RVN burn with "value" set at 100 <br>
   </li>
-  <li>2) a "type 74=t transfer" of the master owner token to the change address used for output#0 with encoded qty=1 and "value"=0 <br>
+  </ul>
+
+  
+  <ul>
+    <li>2) a "type 74=t transfer" of the master owner token to the change address used for output#0 with encoded qty=1 and "value"=0 <br>
   </li>
-  <li>3) a "type 6f=o owner" creation of the subasset owner token with
+  </ul>
+
+  
+  <ul>
+    <li>3) a "type 6f=o owner" creation of the subasset owner token with
 "value"=0 and no encoded qty or features (OP_DROP comes right after the
 subasset name w appended "!") sent to a new address <br>
   </li>
-  <li>4) a "type 71=q new" subasset issue order with "value"=0 and qty
+  </ul>
+
+  
+  <ul>
+    <li>4) a "type 71=q new" subasset issue order with "value"=0 and qty
 and other attributes encoded as desired and sent to the same address
 used for output#3 <br>
   </li>
+  </ul>
+
 </ul>
 <br>
 <u>Creating Unique Assets:</u><br>
