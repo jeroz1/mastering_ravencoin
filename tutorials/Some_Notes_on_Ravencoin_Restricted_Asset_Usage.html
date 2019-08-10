@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>What is wrong with Ravencoin testnet6 block 38554?</title>
+  
+
+  
+  
+  <meta content="Hans Schmidt" name="author">
+
+  
+  <meta content="What is wrong with Ravencoin testnet6 block 38554?" name="description">
+
+  
+  <style type="text/css">
+
+body{margin:0; padding-left: 50px; padding-right: 50px; font-family: verdana; font-size: 150%;}
+
+p{padding:100px; height:20px; color:#4e4e4e; font-size:30px;}
+
+a:link{color:#000066;}
+
+a:visited{color:#6666ff;}
+
+a:hover{color:#000000; text-decoration:underline;}
+
+#spiral_note{margin:0; background-image:url(../images/spiral_note.png); background-repeat: repeat-y;}
+
+div{margin-top:20px; margin-bottom:20px !important;}
+  </style></head><body>
+<div id="spiral_note">
+<div style="padding-left: 126px;">
+<div style="background-image: url(../images/nospiral_note.png); background-repeat: repeat;">
+<div style="padding-right: 50px; padding-top: 10px; padding-bottom: 20px;"><br>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" width="33%">Hans Schmidt :&nbsp; Aug 10th 2019 <br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="right" valign="top" width="33%"><a href="mailto:hans_schm1dt@protonmail.com">hans_schm1dt@protonmail.com</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div align="center">
+<big><big>Some Notes on Ravencoin Restricted Asset Usage</big></big><br>
+<i><b>*Just a few tips to help you get started*</b></i><br>
+</div>
+<br>
+
+<b>Background:</b><br>
+
+<br>
+Yesterday 2019-08-09 the Ravencoin developers released the first GUI
+version of the client which includes restricted address functionality
+for testnet debugging purposes.<br>
+<br>
+It is available for your enjoyment at (use a "Private Browsing" window): <br>
+&nbsp;&nbsp;&nbsp; <a href="https://raven-nightly-builds.ravencoin.org">https://raven-nightly-builds.ravencoin.org</a> --&gt; Restricted-Assets-Testnet-Build<br>
+<br>
+But it may not be intuitively obvious what the purpose is of restricted assets of how to use them.<br>
+<br>
+<br>
+<b>Some Tips:</b><br>
+<br>
+For the general overview you should read the article which Tron Black published after he thought up the new design:<br>
+&nbsp;&nbsp;&nbsp; <a href="https://medium.com/@tronblack/ravencoin-tags-and-restricted-assets-84fe3070a226">https://medium.com/@tronblack/ravencoin-tags-and-restricted-assets-84fe3070a226</a><br>
+&nbsp;&nbsp;&nbsp; <br>
+The usage may be better understood by looking at the RPC commands which were created to support the new functionality:<br>
+&nbsp;&nbsp;&nbsp; <a href="../reference/All%20defined%20Ravencoin%20RPC%20calls%20as%20of%20develop%2002241e950%202019-07-31.txt">All defined Ravencoin RPC calls as of develop 02241e950 2019-07-31</a><br>
+&nbsp;&nbsp;&nbsp; <br>
+Things get even clearer if you look at the help text of the individual commands and the parameters they support:<br>
+&nbsp;&nbsp;&nbsp; <a href="../reference/Help%20details%20of%20new%20RPC%20calls%20in%20Ravencoin%20develop%2002241e950%20since%20V2.2.2%20-%20cleaned.txt">Help details of new RPC calls in Ravencoin develop 02241e950 since V2.2.2</a><br>
+<br>
+Do your debugging using the GUI if you prefer. But the RPC interface
+can still provide useful documentation. It also provides some
+functionality which is not available in the GUI.<br>
+<br>
+Remember that RPC commands can be used from the command line command
+"raven-cli" or in the "Help" -&gt; "Debug Window" -&gt; "Console tab"
+of the GUI.<br>
+<br>
+&nbsp;&nbsp;  <br>
+<u><b>A Few Additional Hints:</b></u><br>
+<ul>
+  <li>You can't do anything related to restricted assets without
+qualifiers, so create them first (eg: #REQUIREMENT_1 and #REQUIREMENT_2)</li>
+</ul>
+<ul>
+  <li>Those qualifiers can then be "tagged" to addresses, indicating that those addresses qualify/meet those requirements</li>
+</ul>
+<ul>
+  <li>You must own a root asset name (eg: MY_ASSET_NAME!) before you
+can create/issue the corresponding restricted asset (eg: $MY_ASSET_NAME)</li>
+</ul>
+<ul>
+  <li>When creating/issuing a restricted asset, you also must first
+decide on its requirements (the qualifier_string) which is specified
+during issuance</li>
+  <ul>
+    <li>The address you issue to (and later may transfer to) must meet the requirements of the qualifier_string&nbsp;&nbsp;&nbsp;<br>
+ </li>
+  </ul>
+</ul>
+<ul>
+  <li>The qualifier_string is a string of up to 80 characters which is a boolean equation using qualifier assets</li>
+  <ul>
+    <li>whitespace is ignored</li>
+    <li>the valid operators are ! (negation), &amp; (and), | (or)</li>
+    <li>parantheses () can be used for logical grouping</li>
+    <li>the RPC command "isvalidverifierstring" can be useful for
+checking syntax validity. Remember that you can use it in the "Help"
+-&gt; "Debug Window" -&gt; "Console tab" of the GUI.</li>
+    <li>eg: "(#REQUIREMENT_1 &amp; !#REQUIREMENT_2) | (#REQUIREMENT_2 &amp; !#REQUIREMENT_1)"</li>
+  </ul>
+</ul>
+&nbsp;&nbsp;&nbsp; <br>
+<br>
+<u><b>Here are a few example RPC commands to get you started:</b></u><br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; <i><b>Issue two qualifier assets=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet issuequalifierasset "#STRAIGHT" 10
+mnGC1gLGrGPsRCXnQU27mYuRJTXsTjZ5ef<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"f1b7ffa01f7e3f9e8b2a1f7c7df830122f551f038e47ac66ab816e5892ca983c"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ./raven-cli
+-testnet issuequalifierasset "#NARROW" 10
+mnGC1gLGrGPsRCXnQU27mYuRJTXsTjZ5ef<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"765293ec432696e2d431f1cec83f8233ccf1f2c9c0b72f5619a7897b9d6967f3"<br>
+</small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Tag "#STRAIGHT" to one address=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet addtagtoaddress "#STRAIGHT"
+myLE6kpf5pwjNM5P2RCEjr7DFiothETD8j<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"36c3e8ed8a3d1a1228d68c0fd0cd5eb62a118c02d07fa91bac716ba4b29fed93"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+</small>&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Tag both "#STRAIGHT" and "#NARROW" to another address=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet addtagtoaddress "#STRAIGHT"
+mhFNPU8DhDrwfQe7YfuWRguwQ8novXWhfq<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"50f3237aa5eca2b6edb027efc35817efa41ee2dd2b15043b9eafa57f05255003"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ./raven-cli
+-testnet addtagtoaddress "#NARROW" mhFNPU8DhDrwfQe7YfuWRguwQ8novXWhfq<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"8031121c24448ef73aec03b96a8578114ff688033ff8dd021829e093922fa3a1"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+</small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Issue some root assets=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet issue "RESTRICT_TST_STRAIGHT" 1
+mtNRbFjiRtBQcSsjwjmdkzxhwnmwnCKmjA<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"34879c1f259e0e5af7e842bdeab73d67825bce29bd28101248a2989120282a82"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /raven-cli
+-testnet issue "RESTRICT_TST_STRAIGHT_N_NARROW" 1
+mtNRbFjiRtBQcSsjwjmdkzxhwnmwnCKmjA<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"b0c4305e42a1058b5a6971c4896ef13e0cea5a97e1210cd21ceda6b8480e97bf"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+</small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Issue the first restricted asset using verifier "#STRAIGHT" to the address tagged with "#STRAIGHT"=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet issuerestrictedasset "RESTRICT_TST_STRAIGHT" 10
+"#STRAIGHT" myLE6kpf5pwjNM5P2RCEjr7DFiothETD8j<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"8573fe96f747df48a1981c49a8838fe6e75cb5d05c47a2dd62492c7aa6f68b6e"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+</small>&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Demonstrate that you cannot issue the 2nd
+restricted asset using verifier "#STRAIGHT &amp; #NARROW" to the
+address tagged only with "#STRAIGHT"=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+/raven-cli -testnet listtagsforaddress
+myLE6kpf5pwjNM5P2RCEjr7DFiothETD8j<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; "#STRAIGHT"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /raven-cli
+-testnet issuerestrictedasset "RESTRICT_TST_STRAIGHT_N_NARROW" 10
+"#STRAIGHT &amp; #NARROW" myLE6kpf5pwjNM5P2RCEjr7DFiothETD8j<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; error code: -8<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; error message:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bad-txns-null-verifier-address-failed-verification<br>
+</small>&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; <i><b>Successfuly issue the 2nd restricted asset
+using verifier "#STRAIGHT &amp; #NARROW" to the address tagged only
+with both "#STRAIGHT" and "#NARROW"=&gt;</b></i><br>
+<small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+./raven-cli -testnet listtagsforaddress
+mhFNPU8DhDrwfQe7YfuWRguwQ8novXWhfq<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; "#NARROW",<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; "#STRAIGHT"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ./raven-cli
+-testnet issuerestrictedasset "RESTRICT_TST_STRAIGHT_N_NARROW" 10
+"#STRAIGHT &amp; #NARROW" mhFNPU8DhDrwfQe7YfuWRguwQ8novXWhfq<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+"aca78e4756c0e66207941ffedd96afe8e3780af36fcb32853453399f9e05fa55"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ]<br>
+</small>&nbsp;&nbsp;&nbsp; <br>
+<br>
+<b>Happy bug hunting !</b><br>
+<b><br>
+</b>
+<div align="center">Copyright 2019 by Hans Schmidt<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</body></html>
