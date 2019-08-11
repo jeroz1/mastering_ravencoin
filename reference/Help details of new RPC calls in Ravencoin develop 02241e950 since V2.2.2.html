@@ -1,0 +1,705 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Help details of new RPC calls in Ravencoin develop 02241e950 since V2.2.2</title>
+  
+
+  
+  
+  <meta content="Hans Schmidt" name="author">
+
+  
+  <meta content="Help details of new RPC calls in Ravencoin develop 02241e950 since V2.2.2" name="description">
+
+  
+  <style type="text/css">
+
+body{margin:0; padding-left: 50px; padding-right: 50px; font-family: verdana; font-size: 150%;}
+
+p{padding:100px; height:20px; color:#4e4e4e; font-size:30px;}
+
+a:link{color:#000066;}
+
+a:visited{color:#6666ff;}
+
+a:hover{color:#000000; text-decoration:underline;}
+
+#spiral_note{margin:0; background-image:url(../images/spiral_note.png); background-repeat: repeat-y;}
+
+div{margin-top:20px; margin-bottom:20px !important;}
+  </style></head><body>
+<div id="spiral_note">
+<div style="padding-left: 126px;">
+<div style="background-image: url(images/nospiral_note.png); background-repeat: repeat;">
+<div style="padding-right: 50px; padding-top: 10px; padding-bottom: 20px;"><br>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" width="33%">Hans Schmidt :&nbsp; July 31st 2019 <br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="right" valign="top" width="33%"><a href="mailto:hans_schm1dt@protonmail.com">hans_schm1dt@protonmail.com</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div align="center">
+<big>Help details of new RPC calls in Ravencoin develop 02241e950 since V2.2.2</big><br>
+</div><small>&nbsp;<big><tt><br>
+<u><b>/src/rpc/assets.cpp ==&gt;</b></u><br>
+<br>
+transferfromaddresses "asset_name" ["from_addresses"] qty "to_address"
+"message" expire_time "rvn_change_address" "asset_change_address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+Transfer a quantity of an owned asset in specific address(es) to a given address<br>
+<br>
+Arguments:<br>
+1.
+"asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) name of asset<br>
+2.
+"from_addresses"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(array, required) list of from addresses to send from<br>
+3.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, required) number of assets you want to send to the address<br>
+4.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) address to send the asset to<br>
+5.
+"message"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional) Once RIP5 is voted in ipfs hash or txid hash to send
+along with the transfer<br>
+6.
+"expire_time"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional) UTC timestamp of when the message expires<br>
+7. "rvn_change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string,
+optional, default = "") the transactions RVN change will be sent to
+this address<br>
+8. "asset_change_address"&nbsp;&nbsp;&nbsp;&nbsp; (string, optional,
+default = "") the transactions Asset change will be sent to this address<br>
+<br>
+Result:<br>
+txid<br>
+[ <br>
+txid<br>
+]<br>
+<br>
+Examples:<br>
+transferfromaddresses "ASSET_NAME" ["fromaddress1 fromaddress2"] 20
+"to_address" "QmTqu3Lk3gmTsQVtjU7rYYM37EAW4xNmbuEAp2Mjr4AV7E" 154652365<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+transferfromaddress "asset_name" "from_address" qty "to_address"
+"message" expire_time "rvn_change_address" "asset_change_address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+Transfer a quantity of an owned asset in a specific address to a given address<br>
+<br>
+Arguments:<br>
+1.
+"asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) name of asset<br>
+2.
+"from_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) address that the asset will be transferred from<br>
+3.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, required) number of assets you want to send to the address<br>
+4.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) address to send the asset to<br>
+5.
+"message"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional) Once RIP5 is voted in ipfs hash or txid hash to send
+along with the transfer<br>
+6.
+"expire_time"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional) UTC timestamp of when the message expires<br>
+7. "rvn_change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string,
+optional, default = "") the transaction RVN change will be sent to this
+address<br>
+8. "asset_change_address"&nbsp;&nbsp;&nbsp;&nbsp; (string, optional,
+default = "") the transaction Asset change will be sent to this address<br>
+<br>
+Result:<br>
+txid<br>
+[ <br>
+txid<br>
+]<br>
+<br>
+Examples:<br>
+transferfromaddress "ASSET_NAME" "fromaddress" 20 "address" "QmTqu3Lk3gmTsQVtjU7rYYM37EAW4xNmbuEAp2Mjr4AV7E", 156545652<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+addtagtoaddress tag_name to_address (change_address)<br>
+<br>
+Assign a tag to a address<br>
+<br>
+Arguments:<br>
+1.
+"tag_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) the name of the tag you are assigning to the
+address, if it doens't have '#' at the front it will be added<br>
+2. "to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) the address that will be assigned the tag<br>
+3. "change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, optional) The change address for the qualifier token to be sent to<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+addtagtoaddress "#TAG" "to_address"<br>
+addtagtoaddress "#TAG" "to_address" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+removetagfromaddress tag_name to_address (change_address)<br>
+<br>
+Remove a tag from a address<br>
+<br>
+Arguments:<br>
+1.
+"tag_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) the name of the tag you are removing from the address<br>
+2. "to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) the address that the tag will be removed from<br>
+3. "change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, optional) The change address for the qualifier token to be sent to<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+removetagfromaddress "#TAG" "to_address"<br>
+removetagfromaddress "#TAG" "to_address" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+freezeaddress asset_name address (change_address)<br>
+<br>
+Freeze an address from transferring a restricted asset<br>
+<br>
+Arguments:<br>
+1. "asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the name of the restricted asset you want to freeze<br>
+2. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the address that will be frozen<br>
+3. "change_address"&nbsp;&nbsp; (string, optional) The change address for the owner token of the restricted asset<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+freezeaddress "$RESTRICTED_ASSET" "address"<br>
+freezeaddress "$RESTRICTED_ASSET" "address" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+unfreezeaddress asset_name address (change_address)<br>
+<br>
+Unfreeze an address from transferring a restricted asset<br>
+<br>
+Arguments:<br>
+1. "asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the name of the restricted asset you want to unfreeze<br>
+2. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the address that will be unfrozen<br>
+3. "change_address"&nbsp;&nbsp; (string, optional) The change address for the owner token of the restricted asset<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+unfreezeaddress "$RESTRICTED_ASSET" "address"<br>
+unfreezeaddress "$RESTRICTED_ASSET" "address" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+freezerestrictedasset asset_name (change_address)<br>
+<br>
+Freeze all trading for a specific restricted asset<br>
+<br>
+Arguments:<br>
+1. "asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the name of the restricted asset you want to unfreeze<br>
+2. "change_address"&nbsp;&nbsp; (string, optional) The change address for the owner token of the restricted asset<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+freezerestrictedasset "$RESTRICTED_ASSET"<br>
+freezerestrictedasset "$RESTRICTED_ASSET" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+unfreezerestrictedasset asset_name (change_address)<br>
+<br>
+Unfreeze all trading for a specific restricted asset<br>
+<br>
+Arguments:<br>
+1. "asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the name of the restricted asset you want to unfreeze<br>
+2. "change_address"&nbsp;&nbsp; (string, optional) The change address for the owner token of the restricted asset<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+unfreezerestrictedasset "$RESTRICTED_ASSET"<br>
+unfreezerestrictedasset "$RESTRICTED_ASSET" "change_address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+listtagsforaddress address<br>
+<br>
+List all tags assigned to an address<br>
+<br>
+Arguments:<br>
+1. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the address to list tags for<br>
+<br>
+Result:<br>
+[<br>
+"tag_name",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string) The tag name<br>
+...,<br>
+]<br>
+<br>
+Examples:<br>
+listtagsforaddress "address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+listaddressesfortag tag_name<br>
+<br>
+List all addresses that have been assigned a given tag<br>
+<br>
+Arguments:<br>
+1. "tag_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the tag asset name to search for<br>
+<br>
+Result:<br>
+[<br>
+"address",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string) The address<br>
+...,<br>
+]<br>
+<br>
+Examples:<br>
+listaddressesfortag "#TAG"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+listaddressrestrictions address<br>
+<br>
+List all assets that have frozen this address<br>
+<br>
+Arguments:<br>
+1. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string), required) the address to list restrictions for<br>
+<br>
+Result:<br>
+[<br>
+"asset_name",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string) The restriction name<br>
+...,<br>
+]<br>
+<br>
+Examples:<br>
+listaddressrestrictions "address"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+listglobalrestrictions<br>
+<br>
+List all global restricted assets<br>
+<br>
+<br>
+Result:<br>
+[<br>
+"asset_name", (string) The asset name<br>
+...,<br>
+]<br>
+<br>
+Examples:<br>
+listglobalrestrictions <br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+getverifierstring restricted_name<br>
+<br>
+Retrieve the verifier string that belongs to the given restricted asset<br>
+<br>
+Arguments:<br>
+1. "restricted_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the asset_name<br>
+<br>
+Result:<br>
+"verifier_string", (string) The verifier for the asset<br>
+<br>
+Examples:<br>
+getverifierstring "restricted_name"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+checkaddresstag address tag_name<br>
+<br>
+Checks to see if an address has the given tag<br>
+<br>
+Arguments:<br>
+1. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the RVN address to search<br>
+1. "tag_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the tag to search<br>
+<br>
+Result:<br>
+"true/false", (boolean) If the address has the tag<br>
+<br>
+Examples:<br>
+checkaddresstag "address" "tag_name"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+checkaddressrestriction address restricted_name<br>
+<br>
+Checks to see if an address has been frozen by the given restricted asset<br>
+<br>
+Arguments:<br>
+1. "address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) the RVN address to search<br>
+1. "restricted_name"&nbsp;&nbsp; (string, required) the restricted asset to search<br>
+<br>
+Result:<br>
+"true/false", (boolean) If the address is frozen<br>
+<br>
+Examples:<br>
+checkaddressrestriction "address" "restricted_name"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+checkglobalrestriction restricted_name<br>
+<br>
+Checks to see if a restricted asset is globally frozen<br>
+<br>
+Arguments:<br>
+1. "restricted_name"&nbsp;&nbsp; (string, required) the restricted asset to search<br>
+<br>
+Result:<br>
+"true/false", (boolean) If the restricted asset is frozen globally<br>
+<br>
+Examples:<br>
+checkglobalrestriction "restricted_name"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+issuequalifierasset "asset_name" qty "( to_address )" "( change_address )" ( reissuable ) ( has_ipfs ) "( ipfs_hash )<br>
+<br>
+Issue an qualifier or sub qualifier asset<br>
+If the '#' character isn't added, it will be added automatically<br>
+Amount is a number between 1 and 10<br>
+Asset name must not conflict with any existing asset.<br>
+Unit is always set to Zero (0) for qualifier assets<br>
+Reissuable is always set to false for qualifier assets<br>
+<br>
+Arguments:<br>
+1. "asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) a unique name<br>
+2.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional, default=1) the number of units to be issued<br>
+3.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string), optional, default=""), address asset will be sent to, if it
+is empty, address will be generated for you<br>
+4. "change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string),
+optional, default=""), address the the rvn change will be sent to, if
+it is empty, change address will be generated for you<br>
+5.
+"has_ipfs"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(boolean, optional, default=false), whether ifps hash is going to be
+added to the asset<br>
+6.
+"ipfs_hash"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional but required if has_ipfs = 1), an ipfs hash or a txid
+hash once RIP5 is activated<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+issuerestrictedasset "asset_name" qty "verifier" "to_address" "(
+change_address )" (units) ( reissuable ) ( has_ipfs ) "( ipfs_hash )<br>
+<br>
+Issue a restricted asset.<br>
+Restricted asset names must not conflict with any existing restricted asset.<br>
+Restricted assets have units set to 0.<br>
+Reissuable is true/false for whether additional assets can be created and if the verifier string can be changed<br>
+<br>
+Arguments:<br>
+1.
+"asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) a unique name, starts with '$' if '$' is not there
+it will be added automatically<br>
+2.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, required) the number of assets to be issued<br>
+3.
+"verifier"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) the KYC string that is evaluated when restricted
+asset transfers are made<br>
+4.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required), address asset will be sent to, this address must
+obey the verifier rules<br>
+5. "change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string,
+optional, default=""), address the the rvn change will be sent to, if
+it is empty, change address will be generated for you<br>
+6.
+"units"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(integer, optional, default=0, min=0, max=8), the number of decimals
+precision for the asset (0 for whole units ("1"), 8 for max precision
+("1.00000000<br>
+7.
+"reissuable"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(boolean, optional, default=true (false for unique assets)), whether
+future reissuance is allowed<br>
+8.
+"has_ipfs"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(boolean, optional, default=false), whether ifps hash is going to be
+added to the asset<br>
+9.
+"ipfs_hash"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional but required if has_ipfs = 1), an ipfs hash or a txid
+hash once RIP5 is activated<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+reissuerestrictedasset "asset_name" qty to_address ( change_verifier )
+( "new_verifier" ) "( to_address )" "( change_address )" ( new_unit ) (
+reissuable ) "( ipfs_hash )<br>
+<br>
+Reissue a already created restricted<br>
+Reissuable is true/false for whether additional asset quantity can be created, an changing the verifier string<br>
+<br>
+Arguments:<br>
+1.
+"asset_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) a unique name, starts with '$'<br>
+2.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, required) the number of assets to be issued<br>
+3.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) address asset will be sent to, this address must
+have the verifier string requirements<br>
+4. "change_verifier"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (boolean,
+optional, default=false) If the verifier string will get changed<br>
+5.
+"verifier"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional, default="") the KYC string that is evaluated when
+restricted asset transfers are made<br>
+6. "change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string,
+optional, default=""), address the the rvn change will be sent to, if
+it is empty, change address will be generated for you<br>
+7.
+"new_unit"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional, default=-1), the new units that will be associated
+with the asset<br>
+8.
+"reissuable"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(boolean, optional, default=true (false for unique assets)), whether
+future reissuance is allowed<br>
+9.
+"ipfs_hash"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional but required if has_ipfs = 1), an ipfs hash or a txid
+hash once RIP5 is activated<br>
+<br>
+Result:<br>
+"txid"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The transaction id<br>
+<br>
+Examples:<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+transferqualifier "qualifier_name" qty "to_address" ("change_address") ("message") (expire_time) <br>
+<br>
+Transfer a qualifier asset owned by this wallet to the given address<br>
+<br>
+Arguments:<br>
+1. "qualifier_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (string, required) name of qualifier asset<br>
+2.
+"qty"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, required) number of assets you want to send to the address<br>
+3.
+"to_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) address to send the asset to<br>
+4.
+"change_address"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional, default = "") the transaction change will be sent to
+this address<br>
+5.
+"message"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, optional) Once RIP5 is voted in ipfs hash or txid hash to send
+along with the transfer<br>
+6.
+"expire_time"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional) UTC timestamp of when the message expires<br>
+<br>
+Result:<br>
+txid<br>
+[ <br>
+txid<br>
+]<br>
+<br>
+Examples:<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+isvalidverifierstring verifier_string<br>
+<br>
+Checks to see if the given verifier string is valid<br>
+<br>
+Arguments:<br>
+1. "verifier_string"&nbsp;&nbsp; (string, required) the verifier string to check<br>
+<br>
+Result:<br>
+"xxxxxxx", (string) If the verifier string is valid, and the reason<br>
+<br>
+Examples:<br>
+isvalidverifierstring "verifier_string"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt></tt></big></small>
+<hr size="2" width="100%"><small><big><tt><u><b><br>
+src/rpc/messages.cpp ==&gt;</b></u><br>
+<br>
+viewallmessages <br>
+<br>
+View all messages that the wallet contains<br>
+<br>
+Result:<br>
+"Asset
+Name:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The name of the asset the message was sent on<br>
+"Message:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The IPFS hash of the message<br>
+"Time:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(Date) The time as a date in the format (YY-mm-dd Hour-minute-second)<br>
+"Block
+Height:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(number) The height of the block the message was included in<br>
+"Status:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) Status of the message (READ, UNREAD, ORPHAN, EXPIRED, SPAM,
+HIDDEN, ERROR)<br>
+"Expire
+Time:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(Date, optional) If the message had an expiration date assigned, it
+will be shown here in the format (YY-mm-dd Hour-minute-second)<br>
+"Expire UTC
+Time:"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(Date, optional) If the message contains an expire date that is too
+large, the UTC number will be displayed<br>
+<br>
+<br>
+Examples:<br>
+viewallmessages <br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+viewallmessagechannels <br>
+<br>
+View all message channels the wallet is subscribed to<br>
+<br>
+Result:[<br>
+"Asset
+Name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string) The asset channel name<br>
+]<br>
+Examples:<br>
+viewallmessagechannels <br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+subscribetochannel <br>
+<br>
+Subscribe to a certain message channel<br>
+<br>
+Arguments:<br>
+1.
+"channel_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) The channel name to subscribe to, it must end with
+'!' or have an '~' in the name<br>
+<br>
+Result:[<br>
+]<br>
+Examples:<br>
+subscribetochannel "ASSET_NAME!"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+unsubscribefromchannel <br>
+<br>
+Unsubscribe from a certain message channel<br>
+<br>
+Arguments:<br>
+1.
+"channel_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) The channel name to unsubscribe from, must end with
+'!' or have an '~' in the name<br>
+<br>
+Result:[<br>
+]<br>
+Examples:<br>
+unsubscribefromchannel "ASSET_NAME!"<br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+clearmessages <br>
+<br>
+Delete current database of messages<br>
+<br>
+Result:[<br>
+]<br>
+Examples:<br>
+clearmessages <br>
+<br>
+</tt></big></small>
+<hr size="2" width="100%"><small><big><tt><br>
+sendmessage "channel_name" "ipfs_hash" (expire_time)<br>
+<br>
+Creates and broadcasts a message transaction to the network for a channel this wallet owns<br>
+<br>
+Arguments:<br>
+1.
+"channel_name"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) Name of the channel that you want to send a message
+with (message channel, administrator asset), if a non administrator
+asset name is given, the administrator '!' will be added to it<br>
+2.
+"ipfs_hash"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(string, required) The IPFS hash of the message<br>
+3.
+"expire_time"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(numeric, optional) UTC timestamp of when the message expires<br>
+<br>
+Result:[<br>
+txid<br>
+]<br>
+<br>
+Examples:<br>
+sendmessage "ASSET_NAME!" "QmTqu3Lk3gmTsQVtjU7rYYM37EAW4xNmbuEAp2Mjr4AV7E" 15863654<br>
+</tt></big><br>
+</small>&nbsp; <br>
+&nbsp;<br>
+
+</div>
+</div>
+</div>
+</div>
+
+</body></html>
